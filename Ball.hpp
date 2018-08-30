@@ -16,7 +16,7 @@ class Ball {
         int speed;
         
         void setPos(int x, int y);
-        void changeAngle(float angle);
+        void setAngle(float angle);
         void setDirection(int direction);
         void setSpeed(int speed);
         void render();

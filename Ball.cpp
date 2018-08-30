@@ -7,6 +7,7 @@ Ball::Ball(sf::RenderWindow& window):window(window) {
     this->ball = sf::RectangleShape(sf::Vector2f(5, 5));
     this->direction = 1;
     this->speed = 5;
+    this->angle = 0;
     this->setPos(400, 300);
 }
 
@@ -17,8 +18,8 @@ void Ball::setPos(int x, int y) {
     this->ball.setPosition(x, y);
 }
 
-void Ball::changeAngle(float angle) {
-
+void Ball::setAngle(float angle) {
+    this->angle = angle;
 }
 
 void Ball::setDirection(int direction) {

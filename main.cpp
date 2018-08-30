@@ -39,11 +39,18 @@ int main() {
         ball.render();
         
         movePaddle(paddle_1);  
+        ai(paddle_2, ball);
         moveBall(ball);
         
+
+
         if (paddle_1.collide(ball)) {
+            if(ball.angle == 0)
+                randomAngle(ball);
             ball.direction *= -1;
         } else if(paddle_2.collide(ball)) {
+            if(ball.angle == 0)
+                randomAngle(ball);
             ball.direction *= -1;
         }
 
