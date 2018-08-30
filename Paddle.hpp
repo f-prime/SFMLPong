@@ -11,15 +11,14 @@ class Paddle {
         sf::RenderWindow &window; 
     public:
         int pos_x;
-        int pos_y;
-       
+        int pos_y; 
         int direction;
-        
-
+        int speed;
         int height;
         int width;
-        void setPos(int x, int y);
         
+
+        void setPos(int x, int y);        
         void setSize(int height, int width);
         bool collide(Ball& ball);
         void render();

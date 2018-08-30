@@ -37,6 +37,6 @@ void Paddle::render() {
     this->window.draw(this->rectangle);
 }
 
-Paddle::Paddle(sf::RenderWindow &window):window(window) {
+Paddle::Paddle(sf::RenderWindow &window):window(window),speed(10) {
     this->setSize(50, 10); 
 }

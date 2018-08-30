@@ -10,11 +10,11 @@ void movePaddle(Paddle &paddle) {
     int p1_y = paddle.pos_y;
 
     if(paddle.direction < 0) {
-        int move = p1_y + 10;
+        int move = p1_y + paddle.speed;
         if(move <= HEIGHT - paddle.height)
             paddle.setPos(p1_x, move);
     } else if(paddle.direction > 0) {
-        int move = p1_y - 10;
+        int move = p1_y - paddle.speed;
         if(move >= 0)
             paddle.setPos(p1_x, move);
     } 
@@ -32,7 +32,7 @@ void randomAngle(Ball& ball) {
     ball.setAngle(angle);
 }
 
-void ai(Paddle& paddle, Ball& ball) {
+void moveAi(Paddle& paddle, Ball& ball) {
     if(ball.pos_y > paddle.pos_y) {
         paddle.direction = -1;
         movePaddle(paddle);
