@@ -1,16 +1,20 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include "Paddle.hpp"
 #include <iostream>
 
-bool moving_down = false;
-bool moving_up = false;
+#include "Utils.hpp"
+
+
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Test Window");
+    sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "SFMLPong");
 
     Paddle paddle_1(window);
-    paddle_1.setPos(10, 10);
+    Paddle paddle_2(window);
+    Ball ball(window);
+
+    paddle_1.setPos(50, HEIGHT / 2 - paddle_2.width);
+    paddle_2.setPos(WIDTH - (50 + paddle_2.width), HEIGHT / 2 - paddle_2.width);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -19,32 +23,30 @@ int main() {
                 window.close();
             } else if(event.type == sf::Event::KeyPressed) {
                 if(event.key.code == sf::Keyboard::Down) {
-                    moving_down = true;
-                    moving_up = false;
+                    paddle_1.direction = -1;
                 } else if(event.key.code == sf::Keyboard::Up) {
-                    moving_up = true;
-                    moving_down = false;
+                    paddle_1.direction = 1;
                 }
             } else if(event.type == sf::Event::KeyReleased) {
-                if(event.key.code == sf::Keyboard::Down)
-                    moving_down = false;
-                else if(event.key.code == sf::Keyboard::Up)
-                    moving_up = false;
-            }
+                if(event.key.code == sf::Keyboard::Down || event.key.code == sf::Keyboard::Up)
+                    paddle_1.direction = 0;
+            }            
         }
         window.clear(sf::Color(0,0,0));
 
         paddle_1.render();   
-
-        int p1_x = paddle_1.pos_x;
-        int p1_y = paddle_1.pos_y;
-    
-        if(moving_down) {
-            paddle_1.setPos(p1_x, p1_y + 10);
-        } else if(moving_up) {
-            paddle_1.setPos(p1_x, p1_y - 10);
+        paddle_2.render();
+        ball.render();
+        
+        movePaddle(paddle_1);  
+        moveBall(ball);
+        
+        if (paddle_1.collide(ball)) {
+            ball.direction *= -1;
+        } else if(paddle_2.collide(ball)) {
+            ball.direction *= -1;
         }
-            
+
         window.display();
         window.setFramerateLimit(60);
     }
